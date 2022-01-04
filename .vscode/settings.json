@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/d93e1cd9-bcd2-4585-9c36-74c5af960478/resourceGroups/ngtuyRG/providers/Microsoft.Web/sites/city-swagger",
+    "appService.deploySubpath": "."
+}
