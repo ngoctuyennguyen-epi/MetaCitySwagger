@@ -18,7 +18,7 @@ module.exports = {
             }
         }
     },
-    '/construct_get': {
+    '/construct_getById': {
         get: {
             tags: ['Construct'],
             description: "Get construct by Id",
@@ -32,6 +32,25 @@ module.exports = {
                 },
                 description: 'The construct Id'
             }],
+            responses: {
+                '200': {
+                    description: "Construct was obtained",
+                    content: {
+                        'application/json': {
+                            // schema:{
+                            //     $ref:'#/components/schemas/Todo'
+                            // }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    '/construct_getConstructShop': {
+        get: {
+            tags: ['Construct'],
+            description: "Get construct in shop",
+            operationId: 'getConstructShop',
             responses: {
                 '200': {
                     description: "Construct was obtained",

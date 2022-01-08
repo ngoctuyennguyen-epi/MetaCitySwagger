@@ -18,10 +18,10 @@ router.get('/construct_getAll', async function (req, res, next) {
     }
 });
 
-router.get('/construct_get', async function (req, res, next) {
+router.get('/construct_getById', async function (req, res, next) {
     try {
         Moralis.User.become(global.currentUser.getSessionToken()).then(async function (user) {
-            const resp = await Moralis.Cloud.run('construct_get', {id: req.query.id});
+            const resp = await Moralis.Cloud.run('construct_getById', {id: req.query.id});
             return res.send(resp);
         }, function (error) {
             console.log('error: ', error.message);
@@ -33,15 +33,15 @@ router.get('/construct_get', async function (req, res, next) {
     }
 });
 
-router.get('/constructType_getAll', async function (req, res, next) {
+router.get('/construct_getConstructShop', async function (req, res, next) {
     try {
         Moralis.User.become(global.currentUser.getSessionToken()).then(async function (user) {
-            const resp = await Moralis.Cloud.run('constructType_getAll');
+            const resp = await Moralis.Cloud.run('construct_getConstructShop');
             return res.send(resp);
         }, function (error) {
             console.log('error: ', error.message);
             // The token could not be validated.
-            return res.send({});
+            return res.send({message: error.message});
         });
     } catch (e) {
         return res.send({message: e.message});
