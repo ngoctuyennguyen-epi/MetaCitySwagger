@@ -4,8 +4,7 @@ const components = require('./components');
 const tags = require('./tags');
 const constructs = require('./constructs');
 const zones = require('./zones');
-const userZones = require('./userZones');
-const userZoneConstruct = require('./userZoneConstruct');
+const userConstruct = require('./userConstruct');
 
 module.exports = {
     ...basicInfo,
@@ -15,7 +14,6 @@ module.exports = {
     paths: {
         ...constructs,
         ...zones,
-        ...userZones,
-        ...userZoneConstruct
+        ...userConstruct
     }
 };
