@@ -179,7 +179,7 @@ router.post('/userConstruct_buy', async function (req, res, next) {
         Moralis.User.become(global.currentUser.getSessionToken()).then(async function (user) {
             try {
                 const resp = await Moralis.Cloud.run('userConstruct_buy', {
-                    constructId: parseInt(req.body.constructId),
+                    constructDef: parseInt(req.body.constructDef),
                     zoneId: req.body.zoneId
                 });
                 return res.send(resp);

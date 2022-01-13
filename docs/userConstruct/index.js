@@ -9,15 +9,15 @@ module.exports = {
                     'application/json': {
                         schema: {
                             type: 'object',
-                            required: ['zoneId', 'constructId'],
+                            required: ['zoneId', 'constructDef'],
                             properties: {
                                 zoneId: {
                                     type: 'string',
                                     description: 'Zone id'
                                 },
-                                constructId: {
+                                constructDef: {
                                     type: 'integer',
-                                    description: 'eBuildingID'
+                                    description: 'mBuildingDef'
                                 }
                             }
                         },
