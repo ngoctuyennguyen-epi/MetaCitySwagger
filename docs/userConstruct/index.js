@@ -109,5 +109,157 @@ module.exports = {
                 }
             }
         }
-    }
+    },
+    '/userConstruct_updateRotation': {
+        post: {
+            tags: ['User construct'],
+            description: "Rotate construct",
+            operationId: 'rotateConstruct',
+            requestBody: {
+                required: true,
+                content: {
+                    'application/json': {
+                        schema: {
+                            type: 'object',
+                            required: ['userConstructId', 'constructRotation'],
+                            properties: {
+                                userConstructId: {
+                                    type: 'string',
+                                    description: 'Construct id'
+                                },
+                                constructRotation: {
+                                    type: 'integer',
+                                    description: 'Construct Rotation'
+                                }
+                            }
+                        }
+                    }
+                },
+                description: ''
+            },
+
+            responses: {
+                '200': {
+                    content: {
+                        'application/json': {
+                            // schema:{
+                            //     $ref:'#/components/schemas/Todo'
+                            // }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    '/userConstruct_destroy': {
+        post: {
+            tags: ['User construct'],
+            description: "Destroy construct",
+            operationId: 'destroyConstruct',
+            requestBody: {
+                required: true,
+                content: {
+                    'application/json': {
+                        schema: {
+                            type: 'object',
+                            required: ['userConstructId'],
+                            properties: {
+                                userConstructId: {
+                                    type: 'string',
+                                    description: 'Construct id'
+                                }
+                            }
+                        }
+                    }
+                },
+                description: ''
+            },
+
+            responses: {
+                '200': {
+                    content: {
+                        'application/json': {
+                            // schema:{
+                            //     $ref:'#/components/schemas/Todo'
+                            // }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    '/userConstruct_collectGold': {
+        post: {
+            tags: ['User construct'],
+            description: "Collect gold",
+            operationId: 'collectGold',
+            requestBody: {
+                required: true,
+                content: {
+                    'application/json': {
+                        schema: {
+                            type: 'object',
+                            required: ['userConstructId'],
+                            properties: {
+                                userConstructId: {
+                                    type: 'string',
+                                    description: 'Construct id'
+                                }
+                            }
+                        }
+                    }
+                },
+                description: ''
+            },
+
+            responses: {
+                '200': {
+                    content: {
+                        'application/json': {
+                            // schema:{
+                            //     $ref:'#/components/schemas/Todo'
+                            // }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    '/userConstruct_restoreLifeTime': {
+        post: {
+            tags: ['User construct'],
+            description: "Restore life time",
+            operationId: 'restoreLifeTime',
+            requestBody: {
+                required: true,
+                content: {
+                    'application/json': {
+                        schema: {
+                            type: 'object',
+                            required: ['userConstructId'],
+                            properties: {
+                                userConstructId: {
+                                    type: 'string',
+                                    description: 'Construct id'
+                                }
+                            }
+                        }
+                    }
+                },
+                description: ''
+            },
+
+            responses: {
+                '200': {
+                    content: {
+                        'application/json': {
+                            // schema:{
+                            //     $ref:'#/components/schemas/Todo'
+                            // }
+                        }
+                    }
+                }
+            }
+        }
+    },
 }
