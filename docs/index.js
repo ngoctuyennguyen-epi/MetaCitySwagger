@@ -6,6 +6,7 @@ const constructs = require('./constructs');
 const zones = require('./zones');
 const userConstruct = require('./userConstruct');
 const worldMap = require('./world-map');
+const users = require('./users');
 
 module.exports = {
     ...basicInfo,
@@ -16,6 +17,7 @@ module.exports = {
         ...constructs,
         ...zones,
         ...userConstruct,
-        ...worldMap
+        ...worldMap,
+        ...users
     }
 };

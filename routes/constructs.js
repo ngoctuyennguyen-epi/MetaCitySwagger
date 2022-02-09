@@ -264,7 +264,18 @@ router.post("/worldMap_buyCell", async function (req, res, next) {
   try {
     const resp = await Moralis.Cloud.run("worldMap_buyCell", {
       idCell: parseInt(req.body.idCell),
-      cellIndex: parseInt(req.body.cellIndex)
+      cellIndex: parseInt(req.body.cellIndex),
+    });
+    return res.send(resp);
+  } catch (e) {
+    return res.send({ message: e.message });
+  }
+});
+
+router.get("/user_resetUser", async function (req, res, next) {
+  try {
+    const resp = await Moralis.Cloud.run("user_resetUser", null, {
+      sessionToken: global.currentUser.getSessionToken(),
     });
     return res.send(resp);
   } catch (e) {
