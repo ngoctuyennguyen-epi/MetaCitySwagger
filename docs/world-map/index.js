@@ -151,4 +151,94 @@ module.exports = {
             }
         }
     },
+    '/worldMap_updateLinkIcon': {
+        post: {
+            tags: ['World Map'],
+            description: "Update link icon",
+            operationId: 'updateLinkIcon',
+            requestBody: {
+                required: true,
+                content: {
+                    'application/json': {
+                        schema: {
+                            type: 'object',
+                            required: ['idCell', 'cellIndex', 'linkIcon'],
+                            properties: {
+                                idCell: {
+                                    type: 'integer',
+                                    description: 'Cell id'
+                                },
+                                cellIndex: {
+                                    type: 'integer',
+                                    description: 'Cell index'
+                                },
+                                linkIcon: {
+                                    type: 'string',
+                                    description: 'Link icon'
+                                }
+                            }
+                        }
+                    }
+                },
+                description: ''
+            },
+
+            responses: {
+                '200': {
+                    content: {
+                        'application/json': {
+                            // schema:{
+                            //     $ref:'#/components/schemas/Todo'
+                            // }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    '/worldMap_updateLinkAds': {
+        post: {
+            tags: ['World Map'],
+            description: "Update link ads",
+            operationId: 'updateLinkAds',
+            requestBody: {
+                required: true,
+                content: {
+                    'application/json': {
+                        schema: {
+                            type: 'object',
+                            required: ['idCell', 'cellIndex', 'linkAds'],
+                            properties: {
+                                idCell: {
+                                    type: 'integer',
+                                    description: 'Cell id'
+                                },
+                                cellIndex: {
+                                    type: 'integer',
+                                    description: 'Cell index'
+                                },
+                                linkAds: {
+                                    type: 'string',
+                                    description: 'Link ads'
+                                }
+                            }
+                        }
+                    }
+                },
+                description: ''
+            },
+
+            responses: {
+                '200': {
+                    content: {
+                        'application/json': {
+                            // schema:{
+                            //     $ref:'#/components/schemas/Todo'
+                            // }
+                        }
+                    }
+                }
+            }
+        }
+    },
 }
