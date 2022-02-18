@@ -117,4 +117,41 @@ module.exports = {
             }
         }
     },
+    '/zone_resetProfile': {
+        post: {
+            tags: ['Zone'],
+            description: "Reset profile",
+            operationId: 'resetProfile',
+            requestBody: {
+                required: true,
+                content: {
+                    'application/json': {
+                        schema: {
+                            type: 'object',
+                            required: ['zoneId'],
+                            properties: {
+                                zoneId: {
+                                    type: 'string',
+                                    description: 'Zone id'
+                                }
+                            }
+                        }
+                    }
+                },
+                description: ''
+            },
+
+            responses: {
+                '200': {
+                    content: {
+                        'application/json': {
+                            // schema:{
+                            //     $ref:'#/components/schemas/Todo'
+                            // }
+                        }
+                    }
+                }
+            }
+        }
+    },
 }

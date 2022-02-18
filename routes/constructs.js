@@ -262,23 +262,31 @@ router.get("/worldMap_getByUserWallet", async function (req, res, next) {
 
 router.post("/worldMap_buyCell", async function (req, res, next) {
   try {
-    const resp = await Moralis.Cloud.run("worldMap_buyCell", {
-      idCell: parseInt(req.body.idCell),
-      cellIndex: parseInt(req.body.cellIndex),
-    });
+    const resp = await Moralis.Cloud.run(
+      "worldMap_buyCell",
+      {
+        idCell: parseInt(req.body.idCell),
+        cellIndex: parseInt(req.body.cellIndex),
+      },
+      { sessionToken: global.currentUser.getSessionToken() }
+    );
     return res.send(resp);
   } catch (e) {
     return res.send({ message: e.message });
   }
 });
 
-router.post("/worldMap_updateLinkIcon", async function (req, res, next) {
+router.post("/worldMap_updateCell", async function (req, res, next) {
   try {
-    const resp = await Moralis.Cloud.run("worldMap_updateLinkIcon", {
-      idCell: parseInt(req.body.idCell),
-      cellIndex: parseInt(req.body.cellIndex),
-      linkIcon: req.body.linkIcon
-    });
+    const resp = await Moralis.Cloud.run(
+      "worldMap_updateCell",
+      {
+        idCell: parseInt(req.body.idCell),
+        cellIndex: parseInt(req.body.cellIndex),
+        params: req.body.params,
+      },
+      { sessionToken: global.currentUser.getSessionToken() }
+    );
     return res.send(resp);
   } catch (e) {
     return res.send({ message: e.message });
@@ -290,7 +298,7 @@ router.post("/worldMap_updateLinkAds", async function (req, res, next) {
     const resp = await Moralis.Cloud.run("worldMap_updateLinkAds", {
       idCell: parseInt(req.body.idCell),
       cellIndex: parseInt(req.body.cellIndex),
-      linkAds: req.body.linkAds
+      linkAds: req.body.linkAds,
     });
     return res.send(resp);
   } catch (e) {
@@ -298,11 +306,15 @@ router.post("/worldMap_updateLinkAds", async function (req, res, next) {
   }
 });
 
-router.get("/user_resetUser", async function (req, res, next) {
+router.post("/zone_resetProfile", async function (req, res, next) {
   try {
-    const resp = await Moralis.Cloud.run("user_resetUser", null, {
-      sessionToken: global.currentUser.getSessionToken(),
-    });
+    const resp = await Moralis.Cloud.run(
+      "zone_resetProfile",
+      { zoneId: req.body.zoneId },
+      {
+        sessionToken: global.currentUser.getSessionToken(),
+      }
+    );
     return res.send(resp);
   } catch (e) {
     return res.send({ message: e.message });

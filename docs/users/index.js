@@ -8,22 +8,22 @@ module.exports = {
     // '/users/login':{
     //     ...userLogin
     // },
-    '/user_resetUser': {
-        get: {
-            tags: ['User'],
-            description: "Reset user",
-            operationId: 'resetUser',
-            responses: {
-                '200': {
-                    content: {
-                        'application/json': {
-                            // schema:{
-                            //     $ref:'#/components/schemas/Todo'
-                            // }
-                        }
-                    }
-                }
-            }
-        }
-    },
+    // '/user_resetUser': {
+    //     get: {
+    //         tags: ['User'],
+    //         description: "Reset user",
+    //         operationId: 'resetUser',
+    //         responses: {
+    //             '200': {
+    //                 content: {
+    //                     'application/json': {
+    //                         // schema:{
+    //                         //     $ref:'#/components/schemas/Todo'
+    //                         // }
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     }
+    // },
 }

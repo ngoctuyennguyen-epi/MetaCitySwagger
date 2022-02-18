@@ -151,18 +151,18 @@ module.exports = {
             }
         }
     },
-    '/worldMap_updateLinkIcon': {
+    '/worldMap_updateCell': {
         post: {
             tags: ['World Map'],
-            description: "Update link icon",
-            operationId: 'updateLinkIcon',
+            description: "Update arrCell",
+            operationId: 'updateArrCell',
             requestBody: {
                 required: true,
                 content: {
                     'application/json': {
                         schema: {
                             type: 'object',
-                            required: ['idCell', 'cellIndex', 'linkIcon'],
+                            required: ['idCell', 'cellIndex', 'params'],
                             properties: {
                                 idCell: {
                                     type: 'integer',
@@ -172,9 +172,32 @@ module.exports = {
                                     type: 'integer',
                                     description: 'Cell index'
                                 },
-                                linkIcon: {
-                                    type: 'string',
-                                    description: 'Link icon'
+                                params: {
+                                    type: 'object',
+                                    description: 'Params',
+                                    properties:{
+                                        linkIcon:{
+                                            type:'string'
+                                        },
+                                        linkAds:{
+                                            type:'string'
+                                        },
+                                        linkBrand:{
+                                            type:'string'
+                                        },
+                                        titleBrand:{
+                                            type:'string'
+                                        },
+                                        description:{
+                                            type:'string'
+                                        },
+                                        linkVisit:{
+                                            type:'string'
+                                        },
+                                        linkBidding:{
+                                            type:'string'
+                                        }
+                                    }
                                 }
                             }
                         }
