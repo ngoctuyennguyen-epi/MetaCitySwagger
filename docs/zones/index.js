@@ -91,19 +91,27 @@ module.exports = {
     },
 
     '/zone_buy': {
-        get: {
+        post: {
             tags: ['Zone'],
             description: "Buy zone",
             operationId: 'buyZone',
-            parameters: [{
-                in: 'query',
-                name: 'id',
+            requestBody: {
                 required: true,
-                schema: {
-                    type: 'string'
+                content: {
+                    'application/json': {
+                        schema: {
+                            type: 'object',
+                            properties: {
+                                zoneId: {
+                                    type: 'string',
+                                    description: 'Zone id'
+                                }
+                            }
+                        }
+                    }
                 },
-                description: 'The Zone Id'
-            }],
+                description: ''
+            },
             responses: {
                 '200': {
                     content: {

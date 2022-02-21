@@ -107,11 +107,11 @@ router.get("/zone_getProfile", async function (req, res, next) {
   }
 });
 
-router.get("/zone_buy", async function (req, res, next) {
+router.post("/zone_buy", async function (req, res, next) {
   try {
     const resp = await Moralis.Cloud.run(
       "zone_buy",
-      { zoneId: req.query.id },
+      { zoneId: req.body.zoneId },
       { sessionToken: global.currentUser.getSessionToken() }
     );
     return res.send(resp);
