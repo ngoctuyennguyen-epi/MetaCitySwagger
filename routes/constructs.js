@@ -1,7 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const Moralis = require("moralis/node");
-const { request } = require("express");
+const fs = require("fs");
+const XLSX = require("xlsx");
+const multer = require("multer");
+const { deepStrictEqual } = require("assert");
+const upload = multer({ dest: "uploads/" });
 
 router.get("/construct_getAll", async function (req, res, next) {
   try {
@@ -320,5 +324,121 @@ router.post("/zone_resetProfile", async function (req, res, next) {
     return res.send({ message: e.message });
   }
 });
+
+router.post(
+  "/config_import",
+  upload.single("importFile"),
+  async function (req, res, next) {
+    try {
+      const uploadFile = req.file;
+      if (uploadFile) {
+        const mimeType = uploadFile.mimetype;
+
+        if (
+          [
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            "application/vnd.ms-excel",
+          ].indexOf(mimeType) < 0
+        ) {
+          return res.send({ message: "File should be xlsx" });
+        }
+
+        const data = fs.readFileSync(req.file.path);
+        const workBook = XLSX.read(data);
+        const sheetNameList = workBook.SheetNames;
+
+        // Zone config
+        const zoneConfigs = await XLSX.utils
+          .sheet_to_json(workBook.Sheets[sheetNameList[0]], {
+            defval: "",
+            blankrows: false,
+          })
+          .slice(0, 1)[0];
+
+        console.log("zoneConfigs", zoneConfigs);
+
+        // Trait config
+        const traitConfigs = await XLSX.utils
+          .sheet_to_json(workBook.Sheets[sheetNameList[1]], {
+            defval: "",
+            blankrows: false,
+          })
+          .slice(0, 100);
+
+        console.log("traitConfigs", traitConfigs);
+
+        // Construct type
+        const constructTypes = await XLSX.utils
+          .sheet_to_json(workBook.Sheets[sheetNameList[2]], {
+            defval: "",
+            blankrows: false,
+          })
+          .slice(0, 100);
+
+        constructTypes.forEach((e) => {
+          e["mResource"] = e["mResource"].split(",");
+        });
+
+        console.log("constructTypes", constructTypes);
+
+        // Construct configs
+        const constructConfigs = await XLSX.utils
+          .sheet_to_json(workBook.Sheets[sheetNameList[3]], {
+            defval: "",
+            blankrows: false,
+          })
+          .slice(0, 100);
+
+        constructConfigs.forEach((e) => {
+          e["mCollectionTime"] = e["mCollectionTime"]
+            .split(",")
+            .map((n) => parseFloat(n));
+
+          e["mLifeTime"] = e["mLifeTime"].split(",").map((n) => parseFloat(n));
+
+          e["mExperience"] = e["mExperience"]
+            .split(",")
+            .map((n) => parseFloat(n));
+
+          e["mProductivity"] = e["mProductivity"]
+            .split(",")
+            .map((n) => parseFloat(n));
+
+          e["mListRequireResourceForRun"] = JSON.parse(
+            e["mListRequireResourceForRun"]
+          );
+
+          e["mReward"] = JSON.parse(e["mReward"]);
+        });
+
+        console.log("constructConfigs", constructConfigs);
+
+        const resp = await Moralis.Cloud.run(
+          "config_update",
+          {
+            zoneConfigs: zoneConfigs,
+            traitConfigs: traitConfigs,
+            constructTypes: constructTypes,
+            constructConfigs: constructConfigs,
+          },
+          {
+            sessionToken: global.currentUser.getSessionToken(),
+          }
+        );
+
+        fs.unlink(req.file.path, (err) => {
+          if (err) {
+            console.error(err)
+          }
+        })
+        return res.send(resp);
+      }
+
+      return res.send({ message: "The file is empty" });
+    } catch (e) {
+      return res.send({ message: e.message });
+    }
+  }
+);
 
 module.exports = router;

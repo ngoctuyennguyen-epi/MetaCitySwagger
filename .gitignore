@@ -6,4 +6,3 @@ dist-ssr
 .idea
 yarn-error.log
 build
-node_modules
