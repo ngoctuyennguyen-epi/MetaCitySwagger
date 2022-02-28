@@ -262,7 +262,7 @@ module.exports = {
             }
         }
     },
-    'userConstruct_updateState': {
+    '/userConstruct_updateState': {
         post: {
             tags: ['User construct'],
             description: "Update state",
