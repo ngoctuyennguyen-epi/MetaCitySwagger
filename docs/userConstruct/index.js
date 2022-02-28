@@ -262,4 +262,41 @@ module.exports = {
             }
         }
     },
+    'userConstruct_updateState': {
+        post: {
+            tags: ['User construct'],
+            description: "Update state",
+            operationId: 'updateState',
+            requestBody: {
+                required: true,
+                content: {
+                    'application/json': {
+                        schema: {
+                            type: 'object',
+                            required: ['userConstructId'],
+                            properties: {
+                                userConstructId: {
+                                    type: 'string',
+                                    description: 'Construct id'
+                                }
+                            }
+                        }
+                    }
+                },
+                description: ''
+            },
+
+            responses: {
+                '200': {
+                    content: {
+                        'application/json': {
+                            // schema:{
+                            //     $ref:'#/components/schemas/Todo'
+                            // }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

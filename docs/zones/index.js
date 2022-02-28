@@ -69,7 +69,7 @@ module.exports = {
             operationId: 'getZoneProfile',
             parameters: [{
                 in: 'query',
-                name: 'id',
+                name: 'zoneId',
                 required: true,
                 schema: {
                     type: 'string'

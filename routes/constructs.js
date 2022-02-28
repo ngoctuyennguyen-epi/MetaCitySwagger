@@ -102,7 +102,7 @@ router.get("/zone_getProfile", async function (req, res, next) {
   try {
     const resp = await Moralis.Cloud.run(
       "zone_getProfile",
-      { zoneId: req.query.id },
+      { zoneId: req.query.zoneId },
       { sessionToken: global.currentUser.getSessionToken() }
     );
     return res.send(resp);
@@ -222,6 +222,21 @@ router.post("/userConstruct_restoreLifeTime", async function (req, res, next) {
   try {
     const resp = await Moralis.Cloud.run(
       "userConstruct_restoreLifeTime",
+      {
+        userConstructId: req.body.userConstructId,
+      },
+      { sessionToken: global.currentUser.getSessionToken() }
+    );
+    return res.send(resp);
+  } catch (e) {
+    return res.send({ message: e.message });
+  }
+});
+
+router.post("/userConstruct_updateState", async function (req, res, next) {
+  try {
+    const resp = await Moralis.Cloud.run(
+      "userConstruct_updateState",
       {
         userConstructId: req.body.userConstructId,
       },
@@ -353,7 +368,7 @@ router.post(
             defval: "",
             blankrows: false,
           })
-          .slice(0, 1)[0];
+          .slice(0, 1);
 
         console.log("zoneConfigs", zoneConfigs);
 
