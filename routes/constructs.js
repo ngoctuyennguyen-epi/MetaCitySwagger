@@ -361,33 +361,41 @@ router.post(
         const data = fs.readFileSync(req.file.path);
         const workBook = XLSX.read(data);
         const sheetNameList = workBook.SheetNames;
+        const sheet2JSONOpts = {
+          range: 1,
+          defval: "",
+          blankrows: false,
+          rawNumbers: true,
+        };
+
+        // Global config
+        const globalConfigs = await XLSX.utils
+          .sheet_to_json(workBook.Sheets[sheetNameList[0]], sheet2JSONOpts)
+          .slice(0, 100)[0];
+
+        console.log("globalConfigs", globalConfigs);
 
         // Zone config
         const zoneConfigs = await XLSX.utils
-          .sheet_to_json(workBook.Sheets[sheetNameList[0]], {
-            defval: "",
-            blankrows: false,
-          })
-          .slice(0, 1);
+          .sheet_to_json(workBook.Sheets[sheetNameList[1]], sheet2JSONOpts)
+          .slice(0, 100);
 
         console.log("zoneConfigs", zoneConfigs);
 
         // Trait config
         const traitConfigs = await XLSX.utils
-          .sheet_to_json(workBook.Sheets[sheetNameList[1]], {
-            defval: "",
-            blankrows: false,
-          })
+          .sheet_to_json(workBook.Sheets[sheetNameList[2]], sheet2JSONOpts)
           .slice(0, 100);
+
+          traitConfigs.forEach((e) => {
+          e["mExtraResource"] = e["mExtraResource"].split(",").filter(n => n && n.trim() !== "");
+        });
 
         console.log("traitConfigs", traitConfigs);
 
         // Construct type
         const constructTypes = await XLSX.utils
-          .sheet_to_json(workBook.Sheets[sheetNameList[2]], {
-            defval: "",
-            blankrows: false,
-          })
+          .sheet_to_json(workBook.Sheets[sheetNameList[3]], sheet2JSONOpts)
           .slice(0, 100);
 
         constructTypes.forEach((e) => {
@@ -398,10 +406,7 @@ router.post(
 
         // Construct configs
         const constructConfigs = await XLSX.utils
-          .sheet_to_json(workBook.Sheets[sheetNameList[3]], {
-            defval: "",
-            blankrows: false,
-          })
+          .sheet_to_json(workBook.Sheets[sheetNameList[4]], sheet2JSONOpts)
           .slice(0, 100);
 
         constructConfigs.forEach((e) => {
@@ -428,13 +433,20 @@ router.post(
 
         console.log("constructConfigs", constructConfigs);
 
+        // Descriptions
+        const descriptions = await XLSX.utils
+          .sheet_to_json(workBook.Sheets[sheetNameList[5]], sheet2JSONOpts)
+          .slice(0, 100);
+
         const resp = await Moralis.Cloud.run(
           "config_update",
           {
+            globalConfigs: globalConfigs,
             zoneConfigs: zoneConfigs,
             traitConfigs: traitConfigs,
             constructTypes: constructTypes,
             constructConfigs: constructConfigs,
+            descriptions: descriptions,
           },
           {
             sessionToken: global.currentUser.getSessionToken(),
@@ -443,9 +455,9 @@ router.post(
 
         fs.unlink(req.file.path, (err) => {
           if (err) {
-            console.error(err)
+            console.error(err);
           }
-        })
+        });
         return res.send(resp);
       }
 
