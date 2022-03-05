@@ -257,6 +257,15 @@ router.get("/worldMap_getAll", async function (req, res, next) {
   }
 });
 
+router.get("/worldMap_getMyLand", async function (req, res, next) {
+  try {
+    const resp = await Moralis.Cloud.run("worldMap_getMyLand", null,{ sessionToken: global.currentUser.getSessionToken() });
+    return res.send(resp);
+  } catch (e) {
+    return res.send({ message: e.message });
+  }
+});
+
 router.get("/worldMap_getByUsername", async function (req, res, next) {
   try {
     const resp = await Moralis.Cloud.run("worldMap_getByUsername", {

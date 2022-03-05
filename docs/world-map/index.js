@@ -56,6 +56,24 @@ module.exports = {
             }
         }
     },
+    '/worldMap_getMyLand': {
+        get: {
+            tags: ['World Map'],
+            description: "Get my land",
+            operationId: 'getMyLand',
+            responses: {
+                '200': {
+                    content: {
+                        'application/json': {
+                            // schema:{
+                            //     $ref:'#/components/schemas/Todo'
+                            // }
+                        }
+                    }
+                }
+            }
+        }
+    },
     '/worldMap_getByUsername': {
         get: {
             tags: ['World Map'],
