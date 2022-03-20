@@ -2,8 +2,8 @@ module.exports = {
     MORALIS_APP_ID: 'EDiOicpmYIK7AofM8I8DTbkYHojRpg8Lno8mUnJb',
     MORALIS_SERVER_URL: 'https://fr9xhvx0xtgw.usemoralis.com:2053/server',
 
-    // MORALIS_APP_ID: 'BhT6N2HNnkdZ98y2Qnl3IRXyPdKSEQPBK3ohwfxB',
-    // MORALIS_SERVER_URL: 'https://cdy3xfvprtbx.usemoralis.com:2053/server',
+    // MORALIS_APP_ID: '0TFgTH1k5J7Dgj1GjEaGfxTkDvYDKWUIRMcjlI9n',
+    // MORALIS_SERVER_URL: 'https://nqpxlycjseus.usemoralis.com:2053/server',
 
     CONTRACT_ADDRESS: '0xC7dA115A574CC7E8bBc9c399e7355C1972Dbfce2',
     MASTER_ADDRESS: '0xFA2019c3A0b42f2de91dbF79DAF9849a0cF05432',
