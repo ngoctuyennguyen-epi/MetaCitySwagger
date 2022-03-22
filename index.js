@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(morgan("dev"));
 app.use(cors());
-app.options('*', cors()) // include before other routes
+// app.options('*', cors()) // include before other routes
 
 app.use(async function (req, res, next) {
   if (!global.currentUser) {
